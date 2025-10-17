@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificación Rápida (Swipe)</title>
+    <link rel="stylesheet" href="swipe_game_style.css">
+</head>
+<body>
+    <div id="juego-contenedor">
+        <h1>¡Desliza y Clasifica! ♻️</h1>
+        
+        <div id="marcadores">
+            <p>Puntuación: <span id="puntuacion">0</span></p>
+            <p>Racha: <span id="racha">0</span></p>
+        </div>
+
+        <div id="zonas-indicador">
+            <div id="indicador-izq" class="indicador" data-tipo="ORGANICO">
+                ORGÁNICO
+            </div>
+            <div id="indicador-der" class="indicador" data-tipo="INORGANICO">
+                INORGÁNICO
+            </div>
+        </div>
+
+        <div id="tarjeta-contenedor">
+            <img id="residuo-imagen" src="" alt="Residuo a clasificar">
+            <h2 id="residuo-nombre"></h2>
+            <p class="instruccion">Desliza la imagen a izquierda (Orgánico) o derecha (Inorgánico)</p>
+        </div>
+        
+        <p id="feedback-mensaje"></p>
+
+        <button id="iniciar-juego">INICIAR CLASIFICACIÓN</button>
+    </div>
+
+    <script src="swipe_game_script.js"></script>
+</body>
+</html>
