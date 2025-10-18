@@ -1,16 +1,24 @@
-// --- DATOS DEL JUEGO: LISTA EXACTA DE RESIDUOS Y SUS RUTAS ---
+// --- DATOS DEL JUEGO: LISTA EXACTA DE RESIDUOS SOLICITADOS ---
 const RESIDUOS = {
     // ------------------- ORGANICOS (IZQUIERDA) -------------------
-    "assets/cascara_banana.png": ["ORGANICO", "Cáscara de Banana"],
-    "assets/restos_comida.png": ["ORGANICO", "Restos de Comida"],
-    "assets/servilleta_usada.png": ["ORGANICO", "Servilleta Usada"],
-    "assets/filtro_cafe.png": ["ORGANICO", "Filtro de Café"],
-
+    "cascara_banana.png": ["ORGANICO", "Cáscara de Banana"],
+    "restos_comida.png": ["ORGANICO", "Restos de Comida"],
+    "residuos_cafe.png": ["ORGANICO", "Residuos de Café"], 
+    "pan_mal_estado.png": ["ORGANICO", "Pan en Mal Estado"], 
+    "desechos_jardineria.png": ["ORGANICO", "Desechos de Jardinería"], 
+    "cascaras_huevo.png": ["ORGANICO", "Cáscaras de Huevo"], 
+    "estiercol.png": ["ORGANICO", "Estiércol"],
+    
     // ------------------ INORGANICOS (DERECHA) ------------------
-    "assets/botella_plastico.png": ["INORGANICO", "Botella Plástica"],
-    "assets/lata_refresco.png": ["INORGANICO", "Lata de Refresco"],
-    "assets/vidrio_roto.png": ["INORGANICO", "Vidrio Roto"],
-    // Nota: Eliminé 'pila_gastada' porque es un residuo especial, dejando 7 items
+    "botella_plastico.png": ["INORGANICO", "Botella Plástica"],
+    "lata_refresco.png": ["INORGANICO", "Lata de Refresco"],
+    "vidrio_roto.png": ["INORGANICO", "Vidrio Roto"],
+    "servilleta_usada.png": ["INORGANICO", "Servilleta Usada"], 
+    "pila_gastada.png": ["INORGANICO", "Pila Gastada"],
+    "envases_alimentos.png": ["INORGANICO", "Envases de Alimentos (Plástico)"],
+    "frascos_vacios.png": ["INORGANICO", "Frascos Vacíos (Vidrio/Metal)"], 
+    "envoltorios_productos.png": ["INORGANICO", "Envoltorios de Productos"],
+    "desechos_electronicos.png": ["INORGANICO", "Desechos Electrónicos (E-waste)"],
 };
 
 let puntuacion = 0;
@@ -41,7 +49,6 @@ function getClientX(event) {
     return event.clientX || event.touches[0].clientX;
 }
 
-// Eventos de INICIO (mousedown y touchstart)
 tarjetaContenedor.addEventListener('mousedown', iniciarArrastre);
 tarjetaContenedor.addEventListener('touchstart', iniciarArrastre);
 
@@ -57,7 +64,6 @@ function iniciarArrastre(e) {
     }
 }
 
-// Eventos de MOVIMIENTO (mousemove y touchmove)
 document.addEventListener('mousemove', moverTarjeta);
 document.addEventListener('touchmove', moverTarjeta);
 
@@ -71,7 +77,6 @@ function moverTarjeta(e) {
     tarjetaContenedor.style.cursor = 'grabbing';
 }
 
-// Eventos de FIN (mouseup y touchend)
 document.addEventListener('mouseup', finalizarArrastre);
 document.addEventListener('touchend', finalizarArrastre);
 
@@ -97,6 +102,7 @@ function finalizarArrastre(e) {
 
 function seleccionarResiduo() {
     if (residuosDisponibles.length === 0) {
+        // Reiniciar la lista de residuos disponibles
         residuosDisponibles = Object.keys(RESIDUOS);
     }
     
@@ -112,7 +118,7 @@ function seleccionarResiduo() {
     
     const [tipo, nombre] = RESIDUOS[residuoActualPath];
     
-    residuoImagenEl.src = residuoActualPath;
+    residuoImagenEl.src = residuoActualPath; 
     residuoImagenEl.alt = nombre;
     residuoNombreEl.textContent = nombre;
     feedbackMensajeEl.textContent = "¡Desliza para clasificar!";
@@ -144,6 +150,7 @@ function verificarGesto(direccion) {
     puntuacionEl.textContent = puntuacion;
     rachaEl.textContent = racha;
     
+    // Esperar 0.5 segundos y cargar el siguiente
     setTimeout(seleccionarResiduo, 500);
 }
 
@@ -157,13 +164,20 @@ function iniciarJuego() {
     
     iniciarJuegoBtn.style.display = 'none';
 
+    // Asegurarse de empezar con la lista completa
     residuosDisponibles = Object.keys(RESIDUOS); 
     
     seleccionarResiduo();
 }
 
 
-// --- INICIO AL CARGAR ---
+// --- INICIO AL CARGAR (Muestra la imagen de bienvenida) ---
 document.addEventListener('DOMContentLoaded', () => {
     iniciarJuegoBtn.onclick = iniciarJuego;
+    
+    // Configuración inicial de la tarjeta con la imagen solicitada
+    residuoImagenEl.src = "imagen_juego.png"; // <-- IMAGEN DE INICIO
+    residuoImagenEl.alt = "Clasificación de Basura";
+    residuoNombreEl.textContent = "Presiona INICIAR para comenzar a clasificar";
+    // ¡Línea eliminada! El texto "¡Aprende a separar los residuos!" ya no aparecerá.
 });
